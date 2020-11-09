@@ -1,7 +1,7 @@
 # Title     : Lecture 2
 # Objective : Write and annotate Code for Lecture 2
 # Created by: ThomasGrant
-# Created on: 09/11/2020
+# Lecture: 01/10/2020
 # The code for Lecture 2 of Forecasting
 install.packages("fma")
 require(fma)
