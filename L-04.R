@@ -1,7 +1,7 @@
 # Title     : Lecture 4
 # Objective : Write and annotate Code for Lecture 4
 # Created by: ThomasGrant
-# Created on: 09/11/2020
+# Lecture: 05/10/2020
 require('fma')
 HoltWinters(dowjones, alpha = 0.5,gamma = FALSE,beta = FALSE)
 # provides you witht the numerical info from the HW algorithm
