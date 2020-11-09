@@ -1,7 +1,7 @@
 # Title     : Lecture 7
 # Objective : Write and annotate Code for Lecture 7
 # Created by: ThomasGrant
-# Created on: 09/11/2020
+# Lecture: 12/11/2020
 require('fma')
 plot(forecast(HoltWinters(beer, seasonal = 'additive'), h = 5*12))
 # This is the Seasonal Holt Winters additive Algorithm SHW+
