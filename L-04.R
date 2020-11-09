@@ -1,5 +1,5 @@
 # Title     : Lecture 4
-# Objective : Write and annotate Code for Lecture 2
+# Objective : Write and annotate Code for Lecture 4
 # Created by: ThomasGrant
 # Created on: 09/11/2020
 require('fma')
