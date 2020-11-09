@@ -1,7 +1,7 @@
 # Title     : Lecture 3
 # Objective : Write and annotate Code for Lecture 2
 # Created by: ThomasGrant
-# Created on: 09/11/2020
+# Lecture: 02/10/2020
 install.packages('fma')
 require('fma')
 acf(beer, 24)
