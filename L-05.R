@@ -1,7 +1,7 @@
 # Title     : Lecture 5
 # Objective : Write and annotate Code for Lecture 5
 # Created by: ThomasGrant
-# Created on: 09/11/2020
+# Leture: 07/10/2020
 require('fma')
 dowjonesHWDES <- HoltWinters(dowjones, gamma = FALSE)
 plot(forecast(dowjonesHWDES, h = 12))
