@@ -1,0 +1,91 @@
+---
+title: "Midterm Assignment"
+author: Tom Grant
+date: 15/11/2020
+output: html_document
+---
+# Import and Display the data
+```{r}
+require("kableExtra")
+require("fma")
+myts <- read.csv('/Users/ThomasGrant/Downloads/pop.csv')
+kbl(myts)
+```
+
+
+This is the initial stage of the project where I add the population database to my R code.
+
+# Break the original dataset into the desired groups
+```{r}
+mytsScotland<-ts(myts$Scotland.population, start="1971",end="2018",frequency=1)
+mytsEngland<-ts(myts$England.population, start="1971",end="2018",frequency=1)
+mytsNorthIreland<-ts(myts$Northern.Ireland.population, start="1971",end="2018",frequency=1)
+mytsWales<-ts(myts$Wales.population, start="1971",end="2018",frequency=1)
+```
+
+Using the ts() function the the myts dataset is broken down into the four countries which we are analysing, England, Wales, Scotland and Northern Ireland.
+
+
+### Visualizations of each country's data
+
+```{r}
+ggtsdisplay(mytsScotland)
+ggtsdisplay(mytsEngland)
+ggtsdisplay(mytsNorthIreland)
+ggtsdisplay(mytsWales)
+```
+
+Using the ggtsdisplay() function we can see the shape of the time series and analyse the ACF and PACF graphs to see if there is a cyclical component to the data. The ACF and PACF in each of these four datasets demonstrates that there is not a cyclical component to the data. If there was a cyclical component to the data we would see a regular spike in both of those graphs. This allows us to eliminate the SHW+ and SHW+ algorithms from our search for the best algorithms to predict the populations of Scotland, England, Northern Ireland and Wales. The shape of the time series also indicates that in the datasets that there is a trend component. indicating that the DES algorithm will be the most suitable.
+
+# Calculate the best algorithm for the datasets
+
+Using both the Simple Exponential Smoothing Algorithm:
+
+Init: $F_1=y_1$ and choose $0<\alpha<1$
+$$
+F_{t+1}=F_t+\alpha(y_t-F_t)
+$$
+
+and the Double Exponential Smoothing Algorithm:
+
+Init $L_1=y_1$  $b_1=y_2-y_1$  $F_1=y_1$
+
+and choose $0<\alpha<1$, $0<\beta<1$
+$$
+L_t = \alpha y_t + (1-\alpha)(L_{t-1}+b_{t-1})
+$$
+$$
+b_t = \beta(L_t-L_{t-11})+(1-\beta)b_{t-1}
+$$
+$$
+F_{t+1} = L_t+b_t
+$$
+We can calculate the sums of square error for each algorithm. To choose the best algorithm to predict the next two values of the datasets.
+```{r}
+EnglandSSE <- matrix(c('SES <- ','DES <- ',HoltWinters(mytsEngland,beta = FALSE, gamma = FALSE )$SSE,HoltWinters(mytsEngland,gamma = FALSE)$SSE), nrow = 2, byrow = FALSE)
+ScotlandSSE <- matrix(c('SES <- ','DES <- ',HoltWinters(mytsScotland,beta = FALSE, gamma = FALSE )$SSE,HoltWinters(mytsScotland,gamma = FALSE)$SSE), nrow = 2, byrow = FALSE)
+WalesSSE <- matrix(c('SES <- ','DES <- ', HoltWinters(mytsWales,beta = FALSE, gamma = FALSE )$SSE,HoltWinters(mytsWales,gamma = FALSE)$SSE), nrow = 2, byrow = FALSE)
+NorthIrelandSSE <- matrix(c('SES <- ','DES <- ', HoltWinters(mytsNorthIreland,beta = FALSE, gamma = FALSE )$SSE,HoltWinters(mytsNorthIreland,gamma = FALSE)$SSE), nrow = 2, byrow = FALSE)
+```
+
+We will now use the kbl() function to check our figures and see what the best algorithm is.
+```{r}
+kbl(EnglandSSE)
+kbl(ScotlandSSE)
+kbl(WalesSSE)
+kbl(NorthIrelandSSE)
+```
+
+# Use The DES algorithm to calculate the populations for 2020
+
+The SSE Check has proven that the DES is a better algorithm for predicting these four algorithms as they have trend components.
+
+Using the DES Algorithm we calculate the population for the next two years:
+```{r}
+forecast(HoltWinters(mytsNorthIreland, gamma = FALSE), h=2)
+forecast(HoltWinters(mytsWales, gamma = FALSE), h=2)
+forecast(HoltWinters(mytsScotland, gamma = FALSE), h=2)
+forecast(HoltWinters(mytsEngland, gamma = FALSE), h=2)
+```
+
+These forecasts assume that the following data follows the trend exactly. The hi and lo columns finds the variance of the previous observations and uses them to calculate confidence intervals.

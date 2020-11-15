@@ -1,7 +1,7 @@
 # Title     : Lecture 8
-# Objective : Write and annotate Code for Lecture 7
+# Objective : Write and annotate Code for Lecture 8
 # Created by: ThomasGrant
-# Created on: 15/11/2020
+# Lecture: 15/11/2020
 require('fma')
 ?pollution
 tsdisplay(pollution)

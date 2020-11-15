@@ -1,0 +1,19 @@
+---
+title: "Lecture 9"
+author: ThomasGrant
+date: 16/10/2020
+output: html_document
+---
+
+```{r}
+require('fma')
+ggtsdisplay(diff(airpass))
+```
+
+The Rmd file type allows you to run chunks of R code, and comment on this code in a way which is legible. Annotated code can be quite hard to follow if you are using it to give a full report.
+
+You can also use Rmd to add the formulae which your code is using to your report, like so:
+$$
+        F_n+k = (L_n+k \times b_n)\times S_{n+k+s}
+$$
+with $k=1$ and $s=12$
