@@ -1982,7 +1982,9 @@ L_t = \alpha y_t + (1-\alpha)(L_{t-1}+b_{t-1})
 b_t = \beta(L_t-L_{t-11})+(1-\beta)b_{t-1}
 \]</span> <span class="math display">\[
 F_{t+1} = L_t+b_t
-\]</span> We can calculate the sums of square error for each algorithm. To choose the best algorithm to predict the next two values of the datasets.</p>
+\]</span> We can calculate the sums of square error for each algorithm. The sum of square errors is the cumulative square difference between the forecasted figures and the actual figures. To choose the best algorithm to predict the next two values of the datasets. <span class="math display">\[
+SSE = \sum_{i=1}^{n} (F_i-y_i)^2
+\]</span> <span class="math inline">\(n\)</span> = the number of observations.</p>
 <pre class="r"><code>EnglandSSE &lt;- matrix(c(&#39;SES &lt;- &#39;,&#39;DES &lt;- &#39;,HoltWinters(mytsEngland,beta = FALSE, gamma = FALSE )$SSE,HoltWinters(mytsEngland,gamma = FALSE)$SSE), nrow = 2, byrow = FALSE)
 ScotlandSSE &lt;- matrix(c(&#39;SES &lt;- &#39;,&#39;DES &lt;- &#39;,HoltWinters(mytsScotland,beta = FALSE, gamma = FALSE )$SSE,HoltWinters(mytsScotland,gamma = FALSE)$SSE), nrow = 2, byrow = FALSE)
 WalesSSE &lt;- matrix(c(&#39;SES &lt;- &#39;,&#39;DES &lt;- &#39;, HoltWinters(mytsWales,beta = FALSE, gamma = FALSE )$SSE,HoltWinters(mytsWales,gamma = FALSE)$SSE), nrow = 2, byrow = FALSE)

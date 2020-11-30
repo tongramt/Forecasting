@@ -12,7 +12,6 @@ myts <- read.csv('/Users/ThomasGrant/Downloads/pop.csv')
 kbl(myts)
 ```
 
-
 This is the initial stage of the project where I add the population database to my R code.
 
 # Break the original dataset into the desired groups
@@ -60,7 +59,11 @@ $$
 $$
 F_{t+1} = L_t+b_t
 $$
-We can calculate the sums of square error for each algorithm. To choose the best algorithm to predict the next two values of the datasets.
+We can calculate the sums of square error for each algorithm. The sum of square errors is the cumulative square difference between the forecasted figures and the actual figures. To choose the best algorithm to predict the next two values of the datasets.
+$$
+SSE = \sum_{i=1}^{n} (F_i-y_i)^2
+$$
+$n$ = the number of observations.
 ```{r}
 EnglandSSE <- matrix(c('SES <- ','DES <- ',HoltWinters(mytsEngland,beta = FALSE, gamma = FALSE )$SSE,HoltWinters(mytsEngland,gamma = FALSE)$SSE), nrow = 2, byrow = FALSE)
 ScotlandSSE <- matrix(c('SES <- ','DES <- ',HoltWinters(mytsScotland,beta = FALSE, gamma = FALSE )$SSE,HoltWinters(mytsScotland,gamma = FALSE)$SSE), nrow = 2, byrow = FALSE)
